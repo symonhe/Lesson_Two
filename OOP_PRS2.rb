@@ -1,6 +1,6 @@
 # Symon He
 # November 7, 2014
-# Tealeaf Lesson 2 Assignment 1: OOP_PRS1.rb
+# Tealeaf Lesson 2 Assignment 1: OOP_PRS2.rb
 
 class Player
   attr_accessor :name, :choice
