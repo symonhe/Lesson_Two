@@ -245,34 +245,36 @@ class Blackjack
     end
   end
 
+  def blackjack_payouts
+    if dealer.is_natural_21?
+      show_all_cards
+      if player.is_natural_21?
+        puts "Dealer has Blackjack.  #{player.name} also has Blackjack.  You Tie!"
+      else
+        puts "Dealer has Blackjack. You lose this hand."
+        player_loses
+      end
+    elsif player.is_natural_21?
+      show_all_cards
+      puts "You have a Blackjack.  You win this hand!"
+      player.chip_count += player_bet * 1.5
+      dealer.chip_count -= player_bet * 1.5
+      puts "You won $#{player_bet} for this hand"
+    end
+  end
+
   def new_game
     begin
       game_reset
-      #need to add play again loop
       take_bet
 
-      #deal initial cards
       2.times {player.add_card(deck.deal_card)}
       2.times {dealer.add_card(deck.deal_card)}
 
-      #show initial hand
       show_dealer_hidden
 
-      #check if dealer or player is natural 21
-      if dealer.is_natural_21?
-        show_all_cards
-        if player.is_natural_21?
-          puts "Dealer has Blackjack.  #{player.name} also has Blackjack.  You Tie!"
-        else
-          puts "Dealer has Blackjack. You lose this hand."
-          player_loses
-        end
-      elsif player.is_natural_21?
-        show_all_cards
-        puts "You have a Blackjack.  You win this hand!"
-        player.chip_count += player_bet * 1.5
-        dealer.chip_count -= player_bet * 1.5
-        puts "You won $#{player_bet} for this hand"
+      if dealer.is_natural_21? || player.is_natural_21?
+        blackjack_payouts
       else
         finish_player_hand
       end
