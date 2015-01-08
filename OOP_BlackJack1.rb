@@ -245,10 +245,6 @@ class Blackjack
     end
   end
 
-  def natural_21_check
-
-  end
-
   def new_game
     begin
       game_reset
